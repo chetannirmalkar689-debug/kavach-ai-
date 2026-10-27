@@ -235,11 +235,16 @@
       current.tags.forEach(t => { const s = document.createElement('span'); s.className = current.isDanger ? 'px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'; s.textContent = t; tagCont.appendChild(s); });
       document.getElementById('fir-text').value = current.fir; startAudio();
     }
-    function handleFileUpload(e) { const file = e.target.files[0]; if (file) { document.getElementById('track-status').textContent = "Uploaded: " + file.name; loadPreset('threat'); } }
-    function toggleFIR() { document.getElementById('fir-card').classList.toggle('hidden'); }
-    function copyFIR() { const txt = document.getElementById('fir-text'); txt.select(); document.execCommand('copy'); const btn = document.getElementById('btn-copy'); btn.textContent = "Copied!"; setTimeout(() => btn.textContent = "Copy", 1800); }
-    window.onload = () => { resize(); loadPreset('threat'); };
-  </script>
-</body>
-            </html>
-            
+        function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        document.getElementById('track-status').textContent = "Uploaded: " + file.name;
+        const name = file.name.toLowerCase();
+        if (name.includes('threat') || name.includes('scam') || name.includes('arrest') || name.includes('clone') || name.includes('fake')) {
+          loadPreset('threat');
+        } else {
+          loadPreset('genuine');
+        }
+      }
+        }
+    
